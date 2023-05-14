@@ -1,12 +1,24 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
+import { authStateChangeUser } from 'redux/auth/authOperation';
 
 const RegistrationPage = lazy(() =>
   import('../../pages/RegistrationPage/RegistrationPage')
 );
 const LoginPage = lazy(() => import('../../pages/LoginPage/LoginPage'));
 
+const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
+
 const App = () => {
+  const dispatch = useDispatch();
+  const isAuthStateChangeUser = useSelector(state => state.auth);
+  console.log(isAuthStateChangeUser);
+
+  useEffect(() => {
+    dispatch(authStateChangeUser());
+  }, [dispatch]);
+
   return (
     <>
       <Suspense>
@@ -14,6 +26,7 @@ const App = () => {
           <Route path="/" element={<RegistrationPage />} />
           <Route path="Registration" element={<RegistrationPage />} />
           <Route path="Login" element={<LoginPage />} />
+          <Route path="Home" element={<HomePage />} />
           <Route path="*" element={<RegistrationPage />} />
         </Routes>
       </Suspense>

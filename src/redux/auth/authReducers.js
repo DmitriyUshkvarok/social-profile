@@ -6,6 +6,7 @@ const state = {
   userAvatar: null,
   stateChange: false,
   userEmail: null,
+  isAuthenticated: false,
 };
 
 export const authSlice = createSlice({

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Formik } from 'formik';
 import { Link } from 'react-router-dom';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
+import { authSignUpUser } from 'redux/auth/authOperation';
+import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import {
   StyleFormRegistration,
@@ -22,13 +24,13 @@ import {
 } from './FormRegistration.styled';
 
 const initialValues = {
-  name: '',
+  login: '',
   email: '',
   password: '',
 };
 
 const schema = yup.object().shape({
-  name: yup.string().min(4).max(20).required(),
+  login: yup.string().min(4).max(20).required(),
   email: yup.string().required(),
   password: yup.string().min(10).max(20).required(),
 });
@@ -36,6 +38,8 @@ const schema = yup.object().shape({
 const FormRegistration = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [dowmloadImg, setDownloadImg] = useState(false);
+
+  const dispatch = useDispatch();
 
   const toggleShowPassword = () => {
     setShowPassword(prewShowPassword => !prewShowPassword);
@@ -46,6 +50,7 @@ const FormRegistration = () => {
   };
 
   const handleSubmit = (values, { resetForm }) => {
+    dispatch(authSignUpUser(values));
     resetForm();
   };
 
@@ -70,10 +75,10 @@ const FormRegistration = () => {
           <FeedbackFormGroup>
             <StyleInputRegistration
               type="text"
-              name="name"
+              name="login"
               placeholder="name"
             ></StyleInputRegistration>
-            <StyleErrorMessage name="name">
+            <StyleErrorMessage name="login">
               {msg => <Error>{msg}</Error>}
             </StyleErrorMessage>
           </FeedbackFormGroup>
