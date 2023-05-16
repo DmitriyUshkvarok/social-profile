@@ -3,7 +3,8 @@ import { Formik } from 'formik';
 import { Link } from 'react-router-dom';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import { authSignInUser } from 'redux/auth/authOperation';
-import { useDispatch } from 'react-redux';
+import { useDispatch} from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import {
   StyleFormLogin,
@@ -32,16 +33,22 @@ const schema = yup.object().shape({
 const FormLogin = () => {
   const [showPassword, setShowPassword] = useState(false);
 
-    const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const toggleShowPassword = () => {
     setShowPassword(prewShowPassword => !prewShowPassword);
   };
 
-  const handleSubmit = (values, { resetForm }) => {
-     console.log(values);
-     dispatch(authSignInUser(values));
-    resetForm();
+  const handleSubmit = async (values, { resetForm }) => {
+    try {
+      await dispatch(authSignInUser(values));
+      navigate('/Home');
+      resetForm();
+    } catch (error) {
+      console.log('Sign-in error:', error);
+    }
   };
 
   return (

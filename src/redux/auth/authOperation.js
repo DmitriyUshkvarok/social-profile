@@ -1,5 +1,6 @@
 import { auth } from '../../firebase/config';
 import { authSlice } from './authReducers';
+import handleAuthError from 'authError/authError';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -29,21 +30,24 @@ const authSignUpUser =
       };
 
       dispatch(authSlice.actions.updateUserProfile(userUpdateProfile));
+      dispatch(authSlice.actions.setToken(user.accessToken));
+      dispatch(authSlice.actions.authSignUpSuccess());
     } catch (error) {
-      console.log(error);
+      handleAuthError(error);
     }
   };
 
 const authSignInUser =
   ({ email, password }) =>
-  async () => {
+  async dispatch => {
     await signInWithEmailAndPassword(auth, email, password)
       .then(userCredential => {
-        // eslint-disable-next-line no-unused-vars
         const user = userCredential.user;
+        dispatch(authSlice.actions.setToken(user.accessToken));
+        dispatch(authSlice.actions.authSignUpSuccess());
       })
       .catch(error => {
-        console.log(error);
+        handleAuthError(error);
       });
   };
 
@@ -55,14 +59,18 @@ const authStateChangeUser = () => async dispatch => {
         login: user.displayName,
         userEmail: user.email,
       };
-
       dispatch(authSlice.actions.updateUserProfile(userUpdateProfile));
-      dispatch(authSlice.actions.authStateChange({ stateChange: true }));
+      dispatch(
+        authSlice.actions.authStateChange({
+          stateChange: true,
+        })
+      );
     }
   });
 };
 
 const authSignOutUser = () => async dispatch => {
+  dispatch(authSlice.actions.authStateChange({ stateChange: false }));
   await signOut(auth);
   dispatch(authSlice.actions.authSignOut());
 };

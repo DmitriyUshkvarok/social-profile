@@ -7,6 +7,7 @@ const state = {
   stateChange: false,
   userEmail: null,
   isAuthenticated: false,
+  token: null,
 };
 
 export const authSlice = createSlice({
@@ -25,5 +26,15 @@ export const authSlice = createSlice({
       stateChange: payload.stateChange,
     }),
     authSignOut: () => state,
+    setToken: (state, { payload }) => ({
+      ...state,
+      token: payload,
+    }),
+    authSignUpSuccess: state => {
+      return {
+        ...state,
+        isAuthenticated: true,
+      };
+    },
   },
 });
