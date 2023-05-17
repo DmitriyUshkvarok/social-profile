@@ -4,13 +4,17 @@ import { Link } from 'react-router-dom';
 import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import { authSignUpUser } from 'redux/auth/authOperation';
 import { useDispatch } from 'react-redux';
-import { authSlice } from 'redux/auth/authReducers';
 import { useNavigate } from 'react-router-dom';
+import { storage } from '../../../firebase/config';
+import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
 import * as yup from 'yup';
 import {
+  MainLoader,
   StyleFormRegistration,
   RegistrationImgContainer,
   IconContainer,
+  ImageContainer,
+  ImgAvatar,
   StyleAiOutlinePlusCircle,
   StyleAiOutlineMinusCircle,
   RegistrationTitle,
@@ -29,21 +33,27 @@ const initialValues = {
   login: '',
   email: '',
   password: '',
+  userAvatar: null,
 };
 
 const schema = yup.object().shape({
   login: yup.string().min(4).max(20).required(),
   email: yup.string().required(),
   password: yup.string().min(10).max(20).required(),
+  userAvatar: yup.mixed().optional(),
 });
 
 const FormRegistration = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [dowmloadImg, setDownloadImg] = useState(false);
+  const [uploadedImage, setUploadedImage] = useState(null);
+  const [showImage, setShowImage] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const fileInputRef = useRef(null);
+  const formikRef = useRef(null);
 
   const dispatch = useDispatch();
 
@@ -52,28 +62,65 @@ const FormRegistration = () => {
   };
 
   const toggleDownloadImg = () => {
-    fileInputRef.current.click();
+    if (showImage) {
+      // Если фото уже отображено, скрываем его и инпут
+      setUploadedImage(null);
+      fileInputRef.current.value = '';
+      setShowImage(false);
+    } else {
+      // Иначе открываем файловый загрузчик
+      fileInputRef.current.click();
+      setShowImage(true);
+    }
     setDownloadImg(prewShowImg => !prewShowImg);
   };
 
-  const handleSubmit = async (values, { resetForm }) => {
+  const handleFileChange = async e => {
+    const file = e.target.files[0];
+    const storageRef = ref(storage, `userAvatar/${file.name}`);
+
     try {
-      await dispatch(authSignUpUser(values));
+      setLoading(true);
+      // Загрузка данных файла в Firebase Storage
+      await uploadBytes(storageRef, file);
+
+      // Получение URL загруженного файла
+      const downloadURL = await getDownloadURL(storageRef);
+
+      setUploadedImage(downloadURL);
+
+      // Обновление значения userAvatar в форме
+      formikRef.current.setFieldValue('userAvatar', downloadURL);
+    } catch (error) {
+      console.log('Ошибка при загрузке файла:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSubmit = async (values, { resetForm, setFieldValue }) => {
+    try {
+      const { userAvatar, ...userData } = values;
+
+      // Если пользователь выбрал аватар, загружаем его в Storage и получаем URL
+      let downloadURL = null;
+      if (userAvatar) {
+        const storageRef = ref(storage, ` userAvatar/${userAvatar.name}`);
+        await uploadBytes(storageRef, userAvatar);
+        downloadURL = await getDownloadURL(storageRef);
+      }
+
+      // Добавляем URL аватара в данные пользователя и отправляем на сервер
+      const userDataWithAvatar = downloadURL
+        ? { ...userData, userAvatar: downloadURL }
+        : userData;
+      formikRef.current.setFieldValue('userAvatar', downloadURL); // Обновляем значение userAvatar в форме
+      await dispatch(authSignUpUser(userDataWithAvatar));
       navigate('/Home');
       resetForm();
     } catch (error) {
       console.log('Sign-in error:', error);
     }
-  };
-
-  const handleImageChange = e => {
-    const file = e.target.files[0];
-    // Выполните дополнительную обработку загруженного файла, если необходимо
-    // Например, можно использовать FileReader для предварительного просмотра изображения
-
-    // Обновите глобальное состояние userAvatar с данными файла
-    dispatch(authSlice.actions.updateUserProfile({ userAvatar: file }));
-    setDownloadImg(true);
   };
 
   return (
@@ -82,10 +129,17 @@ const FormRegistration = () => {
         initialValues={initialValues}
         validationSchema={schema}
         onSubmit={handleSubmit}
+        innerRef={formikRef}
       >
         <StyleFormRegistration>
           <RegistrationImgContainer>
             <IconContainer onClick={toggleDownloadImg}>
+              {uploadedImage && (
+                <ImageContainer>
+                  <ImgAvatar src={uploadedImage} alt="Uploaded Avatar" />
+                </ImageContainer>
+              )}
+              {loading && <MainLoader size={50} fill="gold" />}
               {dowmloadImg ? (
                 <StyleAiOutlineMinusCircle size={30} />
               ) : (
@@ -95,9 +149,10 @@ const FormRegistration = () => {
             <input
               type="file"
               accept="image/*"
-              onChange={handleImageChange}
+              onChange={handleFileChange}
               style={{ display: 'none' }}
               ref={fileInputRef}
+              name=" userAvatar"
             />
           </RegistrationImgContainer>
           <RegistrationTitle>Registration</RegistrationTitle>

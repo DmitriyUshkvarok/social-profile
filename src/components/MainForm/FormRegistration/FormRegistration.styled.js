@@ -1,6 +1,24 @@
 import styled from 'styled-components';
 import { Form, Field, ErrorMessage } from 'formik';
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai';
+import { SiSemanticuireact } from 'react-icons/si';
+
+export const MainLoader = styled(SiSemanticuireact)`
+  animation: rotate 5s infinite linear;
+  -webkit-animation: rotate 5s infinite linear;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;
 
 export const StyleFormRegistration = styled(Form)`
   position: relative;
@@ -22,10 +40,26 @@ export const RegistrationImgContainer = styled.div`
   height: 120px;
   background-image: var(--background-body);
   border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const IconContainer = styled.div`
   width: 100%;
+`;
+
+export const ImageContainer = styled.div`
+  width: 130px;
+  height: 120px;
+  border-radius: 16px;
+`;
+
+export const ImgAvatar = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  object-fit: cover;
 `;
 
 export const StyleAiOutlinePlusCircle = styled(AiOutlinePlusCircle)`
