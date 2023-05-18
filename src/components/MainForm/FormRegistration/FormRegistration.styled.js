@@ -1,9 +1,39 @@
 import styled from 'styled-components';
 import { Form, Field, ErrorMessage } from 'formik';
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai';
-import { SiSemanticuireact } from 'react-icons/si';
+import { SiSemanticuireact, SiReactivex } from 'react-icons/si';
 
 export const MainLoader = styled(SiSemanticuireact)`
+  animation: rotate 5s infinite linear;
+  -webkit-animation: rotate 5s infinite linear;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;
+
+export const RegisterLoaderWraper = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 15;
+  background-image: var(--background-body);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const RegisrLoader = styled(SiReactivex)`
   animation: rotate 5s infinite linear;
   -webkit-animation: rotate 5s infinite linear;
   display: block;

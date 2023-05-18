@@ -1,5 +1,6 @@
 import Container from 'components/Container/Container';
 import {
+  StyleNavigationLink,
   StyleNavigation,
   NavigationList,
   NavigatiomItem,
@@ -13,13 +14,19 @@ const AppNavigation = () => {
       <StyleNavigation>
         <NavigationList>
           <NavigatiomItem>
-            <StyleCgProfile size={30} />
+            <StyleNavigationLink to="/Home">
+              <StyleCgProfile size={30} />
+            </StyleNavigationLink>
           </NavigatiomItem>
           <NavigatiomItem>
-            <StyleAiOutlinePlus size={30} />
+            <StyleNavigationLink to="/create-post">
+              <StyleAiOutlinePlus size={30} />
+            </StyleNavigationLink>
           </NavigatiomItem>
           <NavigatiomItem>
-            <StyleTfiLayoutGrid3 size={30} />
+            <StyleNavigationLink to="/Posts">
+              <StyleTfiLayoutGrid3 size={30} />
+            </StyleNavigationLink>
           </NavigatiomItem>
         </NavigationList>
       </StyleNavigation>

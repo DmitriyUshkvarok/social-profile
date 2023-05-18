@@ -5,6 +5,7 @@ import { authStateChangeUser } from 'redux/auth/authOperation';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import authSelector from 'redux/auth/authSelector';
+import { LoaderWraper, MainLoader } from './App.styled';
 
 const RegistrationPage = lazy(() =>
   import('../../pages/RegistrationPage/RegistrationPage')
@@ -12,6 +13,12 @@ const RegistrationPage = lazy(() =>
 const LoginPage = lazy(() => import('../../pages/LoginPage/LoginPage'));
 
 const HomePage = lazy(() => import('../../pages/HomePage/HomePage'));
+
+const CreatePostPage = lazy(() =>
+  import('../../pages/CreatePostPage/CreatePostPage')
+);
+
+const PostsPage = lazy(() => import('../../pages/PostsPage/PostsPage'));
 
 const App = () => {
   const dispatch = useDispatch();
@@ -25,7 +32,13 @@ const App = () => {
   return (
     <>
       <ToastContainer />
-      <Suspense>
+      <Suspense
+        fallback={
+          <LoaderWraper>
+            <MainLoader size={350} color="gold" />
+          </LoaderWraper>
+        }
+      >
         <Routes>
           <Route
             path="/"
@@ -34,6 +47,8 @@ const App = () => {
           <Route path="Registration" element={<RegistrationPage />} />
           <Route path="Login" element={<LoginPage />} />
           <Route path="Home" element={<HomePage />} />
+          <Route path="create-post" element={<CreatePostPage />} />
+          <Route path="Posts" element={<PostsPage />} />
           <Route path="*" element={<RegistrationPage />} />
         </Routes>
       </Suspense>

@@ -58,6 +58,7 @@ const authStateChangeUser = () => async dispatch => {
         userId: user.uid,
         login: user.displayName,
         userEmail: user.email,
+        userAvatar: user.photoURL,
       };
       dispatch(authSlice.actions.updateUserProfile(userUpdateProfile));
       dispatch(

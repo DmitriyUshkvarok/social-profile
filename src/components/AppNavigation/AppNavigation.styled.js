@@ -1,9 +1,8 @@
 import styled from 'styled-components';
-
-// import { FaHome } from 'react-icons/fa';
 import { TfiLayoutGrid3 } from 'react-icons/tfi';
 import { CgProfile } from 'react-icons/cg';
 import { AiOutlinePlus } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 export const StyleNavigation = styled.nav`
   position: fixed;
@@ -25,6 +24,7 @@ export const NavigationList = styled.ul`
 `;
 
 export const NavigatiomItem = styled.li`
+  position: relative;
   border: 1px solid gold;
   padding: 3px;
   display: flex;
@@ -39,8 +39,27 @@ export const NavigatiomItem = styled.li`
   }
 `;
 
-export const StyleCgProfile = styled(CgProfile)`
+export const StyleNavigationLink = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: gold;
+  width: 100%;
+  transition: background-color 0.4s;
+
+  &:active {
+    background-color: aqua;
+  }
+
+  &:focus {
+    background-color: orange;
+    fill: aqua;
+    outline: none;
+  }
+`;
+
+export const StyleCgProfile = styled(CgProfile)`
+  fill: currentColor;
   transition: 0.4s;
 
   &:hover {
@@ -49,7 +68,7 @@ export const StyleCgProfile = styled(CgProfile)`
 `;
 
 export const StyleAiOutlinePlus = styled(AiOutlinePlus)`
-  fill: gold;
+  fill: currentColor;
   transition: 0.4s;
 
   &:hover {
@@ -58,7 +77,7 @@ export const StyleAiOutlinePlus = styled(AiOutlinePlus)`
 `;
 
 export const StyleTfiLayoutGrid3 = styled(TfiLayoutGrid3)`
-  fill: gold;
+  fill: currentColor;
   transition: 0.4s;
 
   &:hover {

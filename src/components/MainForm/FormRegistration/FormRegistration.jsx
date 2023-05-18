@@ -10,6 +10,8 @@ import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
 import * as yup from 'yup';
 import {
   MainLoader,
+  RegisterLoaderWraper,
+  RegisrLoader,
   StyleFormRegistration,
   RegistrationImgContainer,
   IconContainer,
@@ -49,6 +51,7 @@ const FormRegistration = () => {
   const [uploadedImage, setUploadedImage] = useState(null);
   const [showImage, setShowImage] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isRegistrLoading, setIsRegistrLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -77,20 +80,19 @@ const FormRegistration = () => {
 
   const handleFileChange = async e => {
     const file = e.target.files[0];
-    const storageRef = ref(storage, `userAvatar/${file.name}`);
 
     try {
       setLoading(true);
       // Загрузка данных файла в Firebase Storage
+      const storageRef = ref(storage, `userAvatar/${file.name}`);
       await uploadBytes(storageRef, file);
 
       // Получение URL загруженного файла
       const downloadURL = await getDownloadURL(storageRef);
-
       setUploadedImage(downloadURL);
 
       // Обновление значения userAvatar в форме
-      formikRef.current.setFieldValue('userAvatar', downloadURL);
+      formikRef.current.setFieldValue('userAvatar', file); // Здесь используется file, а не downloadURL
     } catch (error) {
       console.log('Ошибка при загрузке файла:', error);
     } finally {
@@ -98,14 +100,16 @@ const FormRegistration = () => {
     }
   };
 
-  const handleSubmit = async (values, { resetForm, setFieldValue }) => {
+  const handleSubmit = async (values, { resetForm }) => {
     try {
+      setIsRegistrLoading(true);
+
       const { userAvatar, ...userData } = values;
 
       // Если пользователь выбрал аватар, загружаем его в Storage и получаем URL
       let downloadURL = null;
       if (userAvatar) {
-        const storageRef = ref(storage, ` userAvatar/${userAvatar.name}`);
+        const storageRef = ref(storage, `userAvatar/${userAvatar.name}`);
         await uploadBytes(storageRef, userAvatar);
         downloadURL = await getDownloadURL(storageRef);
       }
@@ -120,6 +124,8 @@ const FormRegistration = () => {
       resetForm();
     } catch (error) {
       console.log('Sign-in error:', error);
+    } finally {
+      setIsRegistrLoading(false);
     }
   };
 
@@ -132,6 +138,11 @@ const FormRegistration = () => {
         innerRef={formikRef}
       >
         <StyleFormRegistration>
+          {isRegistrLoading && (
+            <RegisterLoaderWraper>
+              <RegisrLoader size={350} color="gold" />
+            </RegisterLoaderWraper>
+          )}
           <RegistrationImgContainer>
             <IconContainer onClick={toggleDownloadImg}>
               {uploadedImage && (
@@ -204,3 +215,7 @@ const FormRegistration = () => {
 };
 
 export default FormRegistration;
+
+// {isRegistrLoading ? <RegisterLoaderWraper>
+//       <RegisrLoader size={350} color='gold'/>
+//     </RegisterLoaderWraper>:()}
