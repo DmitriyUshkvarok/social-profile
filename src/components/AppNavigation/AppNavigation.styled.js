@@ -25,17 +25,36 @@ export const NavigationList = styled.ul`
 
 export const NavigatiomItem = styled.li`
   position: relative;
-  border: 1px solid gold;
-  padding: 3px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
-  transition: border-color 0.4s;
   cursor: pointer;
+`;
+
+export const StyleCgProfile = styled(CgProfile)`
+  fill: currentColor;
+  transition: 0.4s;
 
   &:hover {
-    border-color: #ff4c00;
+    color: aqua;
+  }
+`;
+
+export const StyleAiOutlinePlus = styled(AiOutlinePlus)`
+  fill: currentColor;
+  transition: 0.4s;
+
+  &:hover {
+    fill: aqua;
+  }
+`;
+
+export const StyleTfiLayoutGrid3 = styled(TfiLayoutGrid3)`
+  fill: currentColor;
+  transition: 0.4s;
+
+  &:hover {
+    fill: aqua;
   }
 `;
 
@@ -44,8 +63,25 @@ export const StyleNavigationLink = styled(Link)`
   justify-content: center;
   align-items: center;
   color: gold;
+  border: 1px solid gold;
+  border-radius: 5px;
+  padding: 3px;
   width: 100%;
   transition: background-color 0.4s;
+
+  &:hover {
+    border-color: aqua;
+
+    &
+      > ${StyleCgProfile},
+      &
+      > ${StyleAiOutlinePlus},
+      &
+      > ${StyleTfiLayoutGrid3} {
+      fill: aqua;
+      color: aqua;
+    }
+  }
 
   &:active {
     background-color: aqua;
@@ -55,32 +91,5 @@ export const StyleNavigationLink = styled(Link)`
     background-color: orange;
     fill: aqua;
     outline: none;
-  }
-`;
-
-export const StyleCgProfile = styled(CgProfile)`
-  fill: currentColor;
-  transition: 0.4s;
-
-  &:hover {
-    color: #ff4c00;
-  }
-`;
-
-export const StyleAiOutlinePlus = styled(AiOutlinePlus)`
-  fill: currentColor;
-  transition: 0.4s;
-
-  &:hover {
-    fill: #ff4c00;
-  }
-`;
-
-export const StyleTfiLayoutGrid3 = styled(TfiLayoutGrid3)`
-  fill: currentColor;
-  transition: 0.4s;
-
-  &:hover {
-    fill: #ff4c00;
   }
 `;

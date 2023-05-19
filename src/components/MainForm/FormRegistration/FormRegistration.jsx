@@ -163,7 +163,7 @@ const FormRegistration = () => {
               onChange={handleFileChange}
               style={{ display: 'none' }}
               ref={fileInputRef}
-              name=" userAvatar"
+              name="userAvatar"
             />
           </RegistrationImgContainer>
           <RegistrationTitle>Registration</RegistrationTitle>
@@ -215,7 +215,3 @@ const FormRegistration = () => {
 };
 
 export default FormRegistration;
-
-// {isRegistrLoading ? <RegisterLoaderWraper>
-//       <RegisrLoader size={350} color='gold'/>
-//     </RegisterLoaderWraper>:()}

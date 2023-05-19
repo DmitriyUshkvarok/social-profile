@@ -19,7 +19,6 @@ body {
   background-attachment: fixed;
 }
 
-/* body[data-theme='dark'] { */
 :root {
   --background-body: linear-gradient(to right, #000000, #0f9b0f);
   --background-header: linear-gradient(to right, #efefbb, #d4d3dd);
@@ -31,19 +30,6 @@ body {
   --hover-color-text: rgb(42, 155, 155);
 }
 
-/* } */
-
-
-/* body[data-theme='light'] {
-  --background-body: linear-gradient(to right, #434343, #000000);
-  --background-header: linear-gradient(to right, #414345, #232526);
-  --background-movies-item: linear-gradient(to right, #414345, #232526);
-  --color: aqua;
-  --border-color: gold;
-  --transition: 0.4s;
-  --box-shadow-header: 0px 2px 8px rgba(10, 216, 244, 0.4);
-  --hover-color-text: rgb(115, 87, 87);
-} */
 
 h1,
 h2,
