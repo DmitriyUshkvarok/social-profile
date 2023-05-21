@@ -1,11 +1,19 @@
 import styled from 'styled-components';
 import { BiLogOut } from 'react-icons/bi';
+import { FaRegComment } from 'react-icons/fa';
+import { SlLike } from 'react-icons/sl';
+import { CiLocationOn } from 'react-icons/ci';
 
 export const HeaderPosts = styled.div`
-  width: 100%;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  z-index: 20;
   display: flex;
   align-items: center;
-  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
   padding-top: 15px;
   padding-bottom: 15px;
   box-shadow: 0px 0px 30px 10px rgba(10, 216, 244, 0.2);
@@ -34,4 +42,92 @@ export const StyleBiLogOut = styled(BiLogOut)`
   &:hover {
     fill: #ff4c00;
   }
+`;
+
+export const MainPostWrapper = styled.div`
+  margin-top: 110px;
+  max-height: 600px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 0.5em;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+`;
+
+export const InfoUserWrapp = styled.div`
+  margin-left: 50px;
+`;
+
+export const PostListWrapper = styled.div`
+  margin-top: 50px;
+  margin-bottom: 110px;
+`;
+
+export const PostList = styled.ul`
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const PostListItem = styled.li`
+  width: 100%;
+  max-width: 900px;
+  border-radius: 30px;
+  min-height: 400px;
+`;
+
+export const PostListPhoto = styled.img`
+  width: 100%;
+  object-fit: cover;
+  border-radius: 30px;
+`;
+
+export const PostTitle = styled.p`
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #212121;
+`;
+
+export const PanelPostList = styled.ul`
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+`;
+
+export const PanelPostItem = styled.li`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:first-child {
+    margin-right: 30px;
+  }
+
+  &:last-child {
+    margin-left: auto;
+  }
+`;
+
+export const StyleFaRegComment = styled(FaRegComment)`
+  cursor: pointer;
+`;
+
+export const StyleSlLike = styled(SlLike)`
+  cursor: pointer;
+`;
+
+export const StyleCiLocationOn = styled(CiLocationOn)`
+  cursor: pointer;
 `;

@@ -5,14 +5,19 @@ import { MdAddAPhoto } from 'react-icons/md';
 import { SiReactivex } from 'react-icons/si';
 import { FaTrashAlt } from 'react-icons/fa';
 
-export const MainLoader = styled(SiReactivex)`
+export const LoaderContainer = styled.div`
   position: relative;
-  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+`;
+
+export const MainLoader = styled(SiReactivex)`
+  position: absolute;
   animation: rotate 5s infinite linear;
   -webkit-animation: rotate 5s infinite linear;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
 
   @keyframes rotate {
     from {
@@ -65,13 +70,27 @@ export const StyleHiArrowLeftCircle = styled(HiArrowLeftCircle)`
   }
 `;
 
+export const MainCreatePostWrapper = styled.div`
+  margin-top: 100px;
+  max-height: 500px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 0.5em;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+`;
+
 export const StyleFormCreatePost = styled(Form)`
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 100px;
 `;
 
 export const StyleInputFileCreatePost = styled(Field)`

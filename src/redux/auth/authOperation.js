@@ -8,6 +8,8 @@ import {
   updateProfile,
   signOut,
 } from 'firebase/auth';
+import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
+import { storage } from '../../firebase/config';
 
 const authSignUpUser =
   ({ email, password, login, userAvatar }) =>
@@ -37,6 +39,36 @@ const authSignUpUser =
     }
   };
 
+const authUpdateProfile =
+  ({ login, userAvatar }) =>
+  async dispatch => {
+    try {
+      const user = await auth.currentUser;
+
+      const storageRef = ref(storage, `userAvatar/${user.uid}`);
+      await uploadBytes(storageRef, userAvatar);
+
+      const downloadURL = await getDownloadURL(storageRef);
+
+      await updateProfile(user, {
+        displayName: login,
+        photoURL: downloadURL,
+      });
+
+      const userUpdateProfile = {
+        userId: user.uid,
+        login: user.displayName,
+        userAvatar: user.photoURL,
+        userEmail: user.email,
+      };
+
+      dispatch(authSlice.actions.updateUserProfile(userUpdateProfile));
+      // Дополнительные действия, которые вы хотите выполнить после обновления профиля
+    } catch (error) {
+      handleAuthError(error);
+    }
+  };
+
 const authSignInUser =
   ({ email, password }) =>
   async dispatch => {
@@ -61,11 +93,7 @@ const authStateChangeUser = () => async dispatch => {
         userAvatar: user.photoURL,
       };
       dispatch(authSlice.actions.updateUserProfile(userUpdateProfile));
-      dispatch(
-        authSlice.actions.authStateChange({
-          stateChange: true,
-        })
-      );
+      dispatch(authSlice.actions.authStateChange({ stateChange: true }));
     }
   });
 };
@@ -76,4 +104,10 @@ const authSignOutUser = () => async dispatch => {
   dispatch(authSlice.actions.authSignOut());
 };
 
-export { authSignUpUser, authSignInUser, authStateChangeUser, authSignOutUser };
+export {
+  authSignUpUser,
+  authUpdateProfile,
+  authSignInUser,
+  authStateChangeUser,
+  authSignOutUser,
+};

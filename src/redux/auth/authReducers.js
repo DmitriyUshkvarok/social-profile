@@ -36,5 +36,11 @@ export const authSlice = createSlice({
         isAuthenticated: true,
       };
     },
+    updateAvatar: (state, { payload }) => {
+      return {
+        ...state,
+        userAvatar: payload,
+      };
+    },
   },
 });
