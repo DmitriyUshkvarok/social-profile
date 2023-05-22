@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { TfiLayoutGrid3 } from 'react-icons/tfi';
 import { CgProfile } from 'react-icons/cg';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export const StyleNavigation = styled.nav`
   position: fixed;
@@ -58,7 +58,7 @@ export const StyleTfiLayoutGrid3 = styled(TfiLayoutGrid3)`
   }
 `;
 
-export const StyleNavigationLink = styled(Link)`
+export const StyleNavigationLink = styled(NavLink)`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,25 +71,14 @@ export const StyleNavigationLink = styled(Link)`
 
   &:hover {
     border-color: aqua;
+  }
 
-    &
-      > ${StyleCgProfile},
-      &
-      > ${StyleAiOutlinePlus},
-      &
-      > ${StyleTfiLayoutGrid3} {
+  &.active {
+    color: aqua;
+    border-color: aqua;
+
+    > ${StyleCgProfile}, > ${StyleAiOutlinePlus}, > ${StyleTfiLayoutGrid3} {
       fill: aqua;
-      color: aqua;
     }
-  }
-
-  &:active {
-    background-color: aqua;
-  }
-
-  &:focus {
-    background-color: orange;
-    fill: aqua;
-    outline: none;
   }
 `;

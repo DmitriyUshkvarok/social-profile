@@ -20,6 +20,8 @@ const CreatePostPage = lazy(() =>
 
 const PostsPage = lazy(() => import('../../pages/PostsPage/PostsPage'));
 
+const CommentPage = lazy(() => import('../../pages/CommentPage/CommentPage'));
+
 const App = () => {
   const dispatch = useDispatch();
 
@@ -49,7 +51,8 @@ const App = () => {
           <Route path="Home" element={<HomePage />} />
           <Route path="create-post" element={<CreatePostPage />} />
           <Route path="Posts" element={<PostsPage />} />
-          <Route path="*" element={<RegistrationPage />} />
+          <Route path="comments/:id" element={<CommentPage />} />
+          <Route path="*" element={<HomePage />} />
         </Routes>
       </Suspense>
     </>

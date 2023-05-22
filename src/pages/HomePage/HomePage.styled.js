@@ -2,11 +2,27 @@ import styled from 'styled-components';
 import { BiLogOut } from 'react-icons/bi';
 import { AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai';
 
+export const NoPostBlock = styled.p`
+  margin-top: 20px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 35px;
+  line-height: 1.16;
+  letter-spacing: 0.01em;
+  color: green;
+  text-shadow: 1px 1px 10px orange;
+`;
+
 export const HeaderProfile = styled.div`
-  width: 100%;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  z-index: 20;
   display: flex;
   align-items: center;
-  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
   padding-top: 15px;
   padding-bottom: 15px;
   box-shadow: 0px 0px 30px 10px rgba(10, 216, 244, 0.2);
@@ -34,6 +50,21 @@ export const StyleBiLogOut = styled(BiLogOut)`
 
   &:hover {
     fill: #ff4c00;
+  }
+`;
+
+export const MainPostProfileWrapper = styled.div`
+  margin-top: 75px;
+  max-height: 600px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 0.5em;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
   }
 `;
 
@@ -74,7 +105,7 @@ export const StyleAiOutlineMinusCircle = styled(AiOutlineMinusCircle)`
 `;
 
 export const NameUser = styled.p`
-  margin-top: 50px;
+  margin-top: 20px;
   margin-bottom: 10px;
   text-align: center;
   font-weight: 500;
@@ -97,6 +128,40 @@ export const EmailUser = styled.p`
   font-size: 20px;
   line-height: 1.16;
   letter-spacing: 0.01em;
+  color: green;
+  text-shadow: 1px 1px 10px orange;
+  margin-bottom: 10px;
+`;
+
+export const ProfilPostList = styled.ul`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 25px;
+  margin-bottom: 90px;
+`;
+
+export const ProfilListItem = styled.li`
+  width: 100%;
+  max-width: 320px;
+  height: 320px;
+  border-radius: 10px;
+`;
+
+export const ImgPostProfile = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+`;
+
+export const ProfilePostTitle = styled.h3`
+  margin-top: 2px;
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: 700;
   color: green;
   text-shadow: 1px 1px 10px orange;
 `;

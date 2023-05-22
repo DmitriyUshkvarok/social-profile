@@ -4,6 +4,17 @@ import { FaRegComment } from 'react-icons/fa';
 import { SlLike } from 'react-icons/sl';
 import { CiLocationOn } from 'react-icons/ci';
 
+export const NoPostBlock = styled.p`
+  margin-top: 20px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 35px;
+  line-height: 1.16;
+  letter-spacing: 0.01em;
+  color: green;
+  text-shadow: 1px 1px 10px orange;
+`;
+
 export const HeaderPosts = styled.div`
   position: fixed;
   top: 10px;

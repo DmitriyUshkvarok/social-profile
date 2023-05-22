@@ -3,7 +3,9 @@ import AppNavigation from 'components/AppNavigation/AppNavigation';
 import InfoUserContainer from 'components/InfoUserContainer/InfoUserContainer';
 import { authSignOutUser } from 'redux/auth/authOperation';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import {
+  NoPostBlock,
   HeaderPosts,
   HeaderPostsTitle,
   LogoutWrapper,
@@ -23,7 +25,7 @@ import {
 } from './PostsPage.styled';
 import Notiflix from 'notiflix';
 import { useEffect, useState } from 'react';
-import { collection, query, getDocs } from 'firebase/firestore';
+import { collection, query, getDocs, orderBy } from 'firebase/firestore';
 import { firestore } from '../../firebase/config';
 import { useNavigate } from 'react-router-dom';
 
@@ -37,13 +39,13 @@ const PostsPage = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       const postsCollectionRef = collection(firestore, 'userPost');
-      const postsQuery = query(postsCollectionRef);
+      const postsQuery = query(postsCollectionRef, orderBy('createdAt'));
       const snapshot = await getDocs(postsQuery);
       const fetchedPosts = snapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data(),
       }));
-      setPosts(fetchedPosts);
+      setPosts(fetchedPosts.reverse());
     };
 
     fetchPosts();
@@ -78,7 +80,7 @@ const PostsPage = () => {
           </InfoUserWrapp>
           <PostListWrapper>
             {posts.length === 0 ? (
-              <div>No posts found.</div>
+              <NoPostBlock>No posts found.</NoPostBlock>
             ) : (
               <PostList>
                 {posts.map(post => (
@@ -91,7 +93,9 @@ const PostsPage = () => {
                     <PostTitle>{post.title}</PostTitle>
                     <PanelPostList>
                       <PanelPostItem>
-                        <StyleFaRegComment size={30} color="#212121" />
+                        <Link to={`/comments/${post.id}`}>
+                          <StyleFaRegComment size={30} color="#212121" />
+                        </Link>
                       </PanelPostItem>
                       <PanelPostItem>
                         <StyleSlLike size={30} color="#212121" />

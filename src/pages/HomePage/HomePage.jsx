@@ -1,8 +1,10 @@
 import {
+  NoPostBlock,
   HeaderProfile,
   HeaderProfileTitle,
   LogoutWrapper,
   StyleBiLogOut,
+  MainPostProfileWrapper,
   UserPhotoWrapper,
   IconContainer,
   StyleAiOutlineMinusCircle,
@@ -10,6 +12,10 @@ import {
   NameUser,
   ImgUserAvatar,
   EmailUser,
+  ProfilPostList,
+  ProfilListItem,
+  ImgPostProfile,
+  ProfilePostTitle,
 } from './HomePage.styled';
 import { authSignOutUser, authUpdateProfile } from 'redux/auth/authOperation';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,10 +33,13 @@ import {
 } from 'firebase/storage';
 import { storage } from '../../firebase/config';
 import { auth } from '../../firebase/config';
+import { collection, query, getDocs, where, orderBy } from 'firebase/firestore';
+import { firestore } from '../../firebase/config';
 
 const HomePage = () => {
   const [avatarURL, setAvatarURL] = useState(null);
   const [showDeleteIcon, setShowDeleteIcon] = useState(false);
+  const [post, setPost] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -39,6 +48,7 @@ const HomePage = () => {
   const name = useSelector(authSelector.getName);
   const email = useSelector(authSelector.getEmail);
   const avatar = useSelector(authSelector.getAvatar);
+  const userId = useSelector(authSelector.getUserId);
 
   const fileInputRef = useRef(null);
 
@@ -52,6 +62,24 @@ const HomePage = () => {
       setAvatarURL(null);
     }
   }, [avatar]);
+
+  useEffect(() => {
+    const fetchPostById = async () => {
+      const postCollectionIdRef = collection(firestore, 'userPost');
+      const postQueryId = query(
+        postCollectionIdRef,
+        where('currentUserId', '==', userId),
+        orderBy('createdAt')
+      );
+      const snapshot = await getDocs(postQueryId);
+      const fetchedPostId = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setPost(fetchedPostId.reverse());
+    };
+    fetchPostById();
+  }, [userId]);
 
   const handleFileChange = async event => {
     const file = event.target.files[0];
@@ -109,32 +137,49 @@ const HomePage = () => {
           <StyleBiLogOut size={30} onClick={logOut} />
         </LogoutWrapper>
       </HeaderProfile>
-      <NameUser>{name}</NameUser>
-      <UserPhotoWrapper>
-        {avatarURL && <ImgUserAvatar src={avatarURL} alt="userAvatar" />}
-        <IconContainer>
-          {avatarURL && showDeleteIcon && (
-            <StyleAiOutlineMinusCircle size={30} onClick={deleteProfilePhoto} />
-          )}
+      <MainPostProfileWrapper>
+        <NameUser>{name}</NameUser>
+        <UserPhotoWrapper>
+          {avatarURL && <ImgUserAvatar src={avatarURL} alt="userAvatar" />}
+          <IconContainer>
+            {avatarURL && showDeleteIcon && (
+              <StyleAiOutlineMinusCircle
+                size={30}
+                onClick={deleteProfilePhoto}
+              />
+            )}
 
-          {!avatarURL && !showDeleteIcon && (
-            <StyleAiOutlinePlusCircle
-              size={30}
-              onClick={() => fileInputRef.current.click()}
+            {!avatarURL && !showDeleteIcon && (
+              <StyleAiOutlinePlusCircle
+                size={30}
+                onClick={() => fileInputRef.current.click()}
+              />
+            )}
+
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              style={{ display: 'none' }}
+              onChange={handleFileChange}
             />
-          )}
-
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            style={{ display: 'none' }}
-            onChange={handleFileChange}
-          />
-        </IconContainer>
-      </UserPhotoWrapper>
-      <EmailUser>{email}</EmailUser>
-      <AppNavigation />
+          </IconContainer>
+        </UserPhotoWrapper>
+        <EmailUser>{email}</EmailUser>
+        {post.length === 0 ? (
+          <NoPostBlock>No posts found.</NoPostBlock>
+        ) : (
+          <ProfilPostList>
+            {post.map(post => (
+              <ProfilListItem key={post.id}>
+                <ImgPostProfile src={post.imageURL} alt="Post" loading="lazy" />
+                <ProfilePostTitle>{post.title}</ProfilePostTitle>
+              </ProfilListItem>
+            ))}
+          </ProfilPostList>
+        )}
+        <AppNavigation />
+      </MainPostProfileWrapper>
     </Container>
   );
 };

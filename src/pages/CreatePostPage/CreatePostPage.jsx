@@ -1,12 +1,15 @@
 import AppNavigation from 'components/AppNavigation/AppNavigation';
 import Container from 'components/Container/Container';
+import authSelector from 'redux/auth/authSelector';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import { useState } from 'react';
 import { storage, firestore } from '../../firebase/config';
 import { ref, getDownloadURL, uploadBytes } from 'firebase/storage';
 import { collection, addDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
+import { v4 as uuidv4 } from 'uuid';
 import {
   LoaderContainer,
   MainLoader,
@@ -44,6 +47,12 @@ const CreatePostPage = () => {
   const inputElement = document.getElementById('postImg');
 
   const navigate = useNavigate();
+
+  const userId = useSelector(authSelector.getUserId);
+
+  const postId = uuidv4();
+
+  const createdAt = new Date();
 
   const handleClickBack = () => {
     navigate(-1);
@@ -93,8 +102,11 @@ const CreatePostPage = () => {
 
         // Создание нового документа в коллекции "posts" и сохранение URL изображения
         const docRef = await addDoc(collection(firestore, 'userPost'), {
+          id: postId,
           title: postTitleVar,
           imageURL: uploadedImage,
+          currentUserId: userId,
+          createdAt: createdAt,
         });
 
         console.log('Документ успешно добавлен с ID:', docRef.id);

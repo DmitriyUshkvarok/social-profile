@@ -71,7 +71,7 @@ export const StyleHiArrowLeftCircle = styled(HiArrowLeftCircle)`
 `;
 
 export const MainCreatePostWrapper = styled.div`
-  margin-top: 100px;
+  margin-top: 85px;
   max-height: 500px;
   overflow-y: auto;
 
