@@ -43,11 +43,26 @@ export const StyleHiArrowLeftCircle = styled(HiArrowLeftCircle)`
   }
 `;
 
+export const MainPostProfileWrapper = styled.div`
+  margin-top: 80px;
+  max-height: 530px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 0.5em;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+`;
+
 export const CommentPostInfo = styled.div`
-  margin-top: 90px;
+  /* margin-top: 90px; */
   width: 100%;
   max-width: 600px;
-  max-height: 400px;
+  height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -71,6 +86,68 @@ export const CommentPostTitle = styled.h3`
   letter-spacing: 0.01em;
   color: green;
   text-shadow: 1px 1px 10px orange;
+`;
+
+export const CommentList = styled.ul`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-top: 40px;
+`;
+
+export const CommentListItem = styled.li`
+  display: flex;
+  width: 100%;
+  gap: 10px;
+
+  &:nth-child(even) {
+    flex-direction: row-reverse;
+  }
+`;
+
+export const UserAvatarCommentWrapper = styled.div``;
+export const UserImgComment = styled.img`
+  object-fit: cover;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+`;
+
+export const InfoCommentWrapper = styled.div`
+  width: 100%;
+  max-width: 600px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  padding: 5px;
+`;
+
+export const UserCommentName = styled.p`
+  font-size: 20px;
+  line-height: 1.16;
+  letter-spacing: 0.01em;
+  color: aqua;
+  text-shadow: 1px 1px 10px orange;
+  margin-bottom: 15px;
+`;
+
+export const UserComment = styled.p`
+  font-size: 16px;
+  line-height: 1.16;
+  letter-spacing: 0.01em;
+  color: gold;
+  text-shadow: 1px 1px 10px orange;
+  margin-bottom: 10px;
+`;
+
+export const UserCommentData = styled.p`
+  display: flex;
+  justify-content: flex-end;
+  text-shadow: 1px 1px 10px orange;
+  color: #bdbdbd;
+  font-size: 14px;
+  line-height: 1.16;
+  letter-spacing: 0.01em;
 `;
 
 export const CommentFormWrapper = styled.div`

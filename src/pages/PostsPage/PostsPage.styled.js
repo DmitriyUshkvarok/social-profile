@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { BiLogOut } from 'react-icons/bi';
-import { FaRegComment } from 'react-icons/fa';
+import { FaComment } from 'react-icons/fa';
 import { SlLike } from 'react-icons/sl';
 import { CiLocationOn } from 'react-icons/ci';
 
@@ -56,7 +56,7 @@ export const StyleBiLogOut = styled(BiLogOut)`
 `;
 
 export const MainPostWrapper = styled.div`
-  margin-top: 110px;
+  margin-top: 80px;
   max-height: 600px;
   overflow-y: auto;
 
@@ -131,7 +131,16 @@ export const PanelPostItem = styled.li`
   }
 `;
 
-export const StyleFaRegComment = styled(FaRegComment)`
+export const CommentCount = styled.span`
+  margin-left: 5px;
+  font-size: 19px;
+  font-weight: bold;
+  text-shadow: 0px 0px 20px #28a745;
+  color: gold;
+  letter-spacing: 2px;
+`;
+
+export const StyleFaRegComment = styled(FaComment)`
   cursor: pointer;
 `;
 

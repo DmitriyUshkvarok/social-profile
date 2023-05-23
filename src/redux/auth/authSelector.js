@@ -10,6 +10,8 @@ const getAvatar = state => state.auth.userAvatar;
 
 const getUserId = state => state.auth.userId;
 
+const getcommentCount = state => state.auth.commentCounts;
+
 const authSelector = {
   getIsLoggedIn,
   getIsRefreshing,
@@ -17,6 +19,7 @@ const authSelector = {
   getEmail,
   getAvatar,
   getUserId,
+  getcommentCount,
 };
 
 export default authSelector;

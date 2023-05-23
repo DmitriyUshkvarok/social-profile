@@ -8,6 +8,7 @@ const state = {
   userEmail: null,
   isAuthenticated: false,
   token: null,
+  commentCounts: {},
 };
 
 export const authSlice = createSlice({
@@ -41,6 +42,10 @@ export const authSlice = createSlice({
         ...state,
         userAvatar: payload,
       };
+    },
+    updateCommentCount(state, action) {
+      const { id, count } = action.payload;
+      state.commentCounts[id] = count;
     },
   },
 });

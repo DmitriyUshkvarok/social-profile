@@ -2,7 +2,8 @@ import Container from 'components/Container/Container';
 import AppNavigation from 'components/AppNavigation/AppNavigation';
 import InfoUserContainer from 'components/InfoUserContainer/InfoUserContainer';
 import { authSignOutUser } from 'redux/auth/authOperation';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import authSelector from 'redux/auth/authSelector';
 import { Link } from 'react-router-dom';
 import {
   NoPostBlock,
@@ -18,6 +19,7 @@ import {
   PostListPhoto,
   PostTitle,
   PanelPostList,
+  CommentCount,
   PanelPostItem,
   StyleFaRegComment,
   StyleSlLike,
@@ -33,6 +35,8 @@ const PostsPage = () => {
   const [posts, setPosts] = useState([]);
 
   const dispatch = useDispatch();
+
+  const commentCount = useSelector(authSelector.getcommentCount);
 
   const navigate = useNavigate();
 
@@ -94,7 +98,19 @@ const PostsPage = () => {
                     <PanelPostList>
                       <PanelPostItem>
                         <Link to={`/comments/${post.id}`}>
-                          <StyleFaRegComment size={30} color="#212121" />
+                          {commentCount[post.id] > 0 ? (
+                            <StyleFaRegComment size={30} color="gold" />
+                          ) : (
+                            <StyleFaRegComment
+                              size={30}
+                              style={{
+                                stroke: 'gold',
+                                strokeWidth: '20px',
+                                fill: 'transparent',
+                              }}
+                            />
+                          )}
+                          <CommentCount>{commentCount[post.id]}</CommentCount>
                         </Link>
                       </PanelPostItem>
                       <PanelPostItem>
