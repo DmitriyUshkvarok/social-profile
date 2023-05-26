@@ -102,7 +102,6 @@ const CreatePostPage = () => {
 
         const postTitleVar = postTitle;
 
-        // Создание нового документа в коллекции "posts" и сохранение URL изображения
         const docRef = await addDoc(collection(firestore, 'userPost'), {
           title: postTitleVar,
           imageURL: uploadedImage,
@@ -116,7 +115,6 @@ const CreatePostPage = () => {
 
         console.log('Документ успешно добавлен с ID:', docRef.id);
 
-        // Очистка формы и загруженного изображения
         setUploadedImage(null);
         inputElement.value = '';
         setPostTitle('');
