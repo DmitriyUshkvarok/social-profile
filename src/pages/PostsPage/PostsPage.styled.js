@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { BiLogOut } from 'react-icons/bi';
 import { FaComment } from 'react-icons/fa';
-import { SlLike } from 'react-icons/sl';
+import { AiFillLike } from 'react-icons/ai';
 import { CiLocationOn } from 'react-icons/ci';
 
 export const NoPostBlock = styled.p`
@@ -55,10 +55,35 @@ export const StyleBiLogOut = styled(BiLogOut)`
   }
 `;
 
+export const InfoUserPost = styled.div`
+  display: flex;
+  align-items: center;
+  max-width: 200px;
+  margin-bottom: 5px;
+`;
+
+export const InfoUserAvatar = styled.img`
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 5px;
+`;
+
+export const InfoUserName = styled.p`
+  font-size: 14px;
+  font-weight: bold;
+  text-shadow: 0px 0px 5px #ffffff;
+  color: aqua;
+  letter-spacing: 2px;
+`;
+
 export const MainPostWrapper = styled.div`
   margin-top: 80px;
+  padding: 10px;
   max-height: 600px;
   overflow-y: auto;
+  box-shadow: 0px 0px 30px 10px rgba(10, 216, 244, 0.2);
 
   &::-webkit-scrollbar {
     width: 0.5em;
@@ -102,13 +127,15 @@ export const PostListPhoto = styled.img`
   width: 100%;
   object-fit: cover;
   border-radius: 30px;
+  box-shadow: 0px 0px 30px 10px rgba(10, 216, 244, 0.4);
 `;
 
 export const PostTitle = styled.p`
   margin-top: 10px;
   font-size: 18px;
   font-weight: 700;
-  color: #212121;
+  color: gold;
+  text-shadow: 0px 0px 3px #000;
 `;
 
 export const PanelPostList = styled.ul`
@@ -120,7 +147,7 @@ export const PanelPostList = styled.ul`
 export const PanelPostItem = styled.li`
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: baseline;
 
   &:first-child {
     margin-right: 30px;
@@ -131,12 +158,21 @@ export const PanelPostItem = styled.li`
   }
 `;
 
+export const CountLike = styled.span`
+  margin-left: 5px;
+  font-size: 19px;
+  font-weight: bold;
+  text-shadow: 0px 0px 7px #000;
+  color: aqua;
+  letter-spacing: 2px;
+`;
+
 export const CommentCount = styled.span`
   margin-left: 5px;
   font-size: 19px;
   font-weight: bold;
-  text-shadow: 0px 0px 20px #28a745;
-  color: gold;
+  text-shadow: 0px 0px 7px #000;
+  color: aqua;
   letter-spacing: 2px;
 `;
 
@@ -144,7 +180,7 @@ export const StyleFaRegComment = styled(FaComment)`
   cursor: pointer;
 `;
 
-export const StyleSlLike = styled(SlLike)`
+export const StyleSlLike = styled(AiFillLike)`
   cursor: pointer;
 `;
 

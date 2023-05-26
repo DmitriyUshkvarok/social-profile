@@ -68,7 +68,7 @@ const HomePage = () => {
       const postCollectionIdRef = collection(firestore, 'userPost');
       const postQueryId = query(
         postCollectionIdRef,
-        where('currentUserId', '==', userId),
+        where('userId', '==', userId),
         orderBy('createdAt')
       );
       const snapshot = await getDocs(postQueryId);

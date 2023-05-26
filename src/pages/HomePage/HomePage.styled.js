@@ -112,8 +112,8 @@ export const NameUser = styled.p`
   font-size: 30px;
   line-height: 1.16;
   letter-spacing: 0.01em;
-  color: green;
-  text-shadow: 1px 1px 10px orange;
+  color: aqua;
+  text-shadow: 0px 0px 10px #000;
 `;
 
 export const ImgUserAvatar = styled.img`
@@ -121,6 +121,7 @@ export const ImgUserAvatar = styled.img`
   height: 100%;
   object-fit: cover;
   border-radius: 20px;
+  box-shadow: 0px 0px 40px 10px rgba(10, 216, 244, 0.4);
 `;
 
 export const EmailUser = styled.p`
@@ -148,6 +149,7 @@ export const ProfilListItem = styled.li`
   max-width: 320px;
   height: 320px;
   border-radius: 10px;
+  box-shadow: 0px 0px 30px 10px rgba(10, 216, 244, 0.6);
 `;
 
 export const ImgPostProfile = styled.img`
@@ -162,6 +164,6 @@ export const ProfilePostTitle = styled.h3`
   margin-bottom: 5px;
   font-size: 14px;
   font-weight: 700;
-  color: green;
-  text-shadow: 1px 1px 10px orange;
+  color: gold;
+  text-shadow: 0px 0px 3px #000;
 `;

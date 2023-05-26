@@ -49,8 +49,10 @@ const CreatePostPage = () => {
   const navigate = useNavigate();
 
   const userId = useSelector(authSelector.getUserId);
+  const login = useSelector(authSelector.getName);
+  const userAvatar = useSelector(authSelector.getAvatar);
 
-  const postId = uuidv4();
+  const imgId = uuidv4();
 
   const createdAt = new Date();
 
@@ -98,15 +100,18 @@ const CreatePostPage = () => {
       if (uploadedImage) {
         setLoading(true);
 
-        const postTitleVar = postTitle; // Здесь можно получить значение заголовка из формы
+        const postTitleVar = postTitle;
 
         // Создание нового документа в коллекции "posts" и сохранение URL изображения
         const docRef = await addDoc(collection(firestore, 'userPost'), {
-          id: postId,
           title: postTitleVar,
           imageURL: uploadedImage,
-          currentUserId: userId,
+          userId: userId,
           createdAt: createdAt,
+          login,
+          userAvatar,
+          likes: 0,
+          imgId,
         });
 
         console.log('Документ успешно добавлен с ID:', docRef.id);

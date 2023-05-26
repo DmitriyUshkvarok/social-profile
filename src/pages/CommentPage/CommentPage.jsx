@@ -108,6 +108,7 @@ const CommentPage = () => {
       formatData,
       id,
       createdAt,
+      countComment: allComments.length,
     });
     setComment('');
   };
