@@ -25,7 +25,7 @@ body {
   --background-body: linear-gradient(to right, #000000, #0f9b0f);
   --background-header: linear-gradient(to right, #efefbb, #d4d3dd);
   --background-movies-item: linear-gradient(to right, #efefbb, #d4d3dd);
-  --color: rgb(41, 28, 28);
+  --color: gold;
   --border-color: gray;
   --transition: 0.4s;
   --box-shadow-header: 0px 2px 8px rgba(0, 0, 0, 0.2);

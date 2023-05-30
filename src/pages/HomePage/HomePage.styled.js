@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { BiLogOut } from 'react-icons/bi';
-import { AiOutlinePlusCircle, AiOutlineMinusCircle } from 'react-icons/ai';
+import { AiOutlineMinusCircle, AiFillLike } from 'react-icons/ai';
+import { FaComment } from 'react-icons/fa';
+import { CiLocationOn } from 'react-icons/ci';
 
 export const NoPostBlock = styled.p`
   margin-top: 20px;
@@ -84,16 +86,11 @@ export const UserPhotoWrapper = styled.div`
   border-radius: 25px;
 `;
 
-export const IconContainer = styled.div`
-  width: 100%;
-`;
-
-export const StyleAiOutlinePlusCircle = styled(AiOutlinePlusCircle)`
+export const InputFileChange = styled.input`
   position: absolute;
-  bottom: 10px;
-  right: -15px;
-  fill: gold;
-  cursor: pointer;
+  opacity: 0;
+  width: 0;
+  height: 0;
 `;
 
 export const StyleAiOutlineMinusCircle = styled(AiOutlineMinusCircle)`
@@ -102,6 +99,27 @@ export const StyleAiOutlineMinusCircle = styled(AiOutlineMinusCircle)`
   right: -15px;
   fill: red;
   cursor: pointer;
+`;
+
+export const BtnUpdateAvatar = styled.button`
+  position: absolute;
+  bottom: 10px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: aqua;
+  font-weight: bold;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: var(--transition);
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: var(--color);
+  }
 `;
 
 export const NameUser = styled.p`
@@ -141,7 +159,7 @@ export const ProfilPostList = styled.ul`
   align-items: center;
   flex-wrap: wrap;
   gap: 25px;
-  margin-bottom: 90px;
+  margin-bottom: 140px;
 `;
 
 export const ProfilListItem = styled.li`
@@ -166,4 +184,54 @@ export const ProfilePostTitle = styled.h3`
   font-weight: 700;
   color: gold;
   text-shadow: 0px 0px 3px #000;
+`;
+
+export const PanelPostList = styled.ul`
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+`;
+
+export const PanelPostItem = styled.li`
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+
+  &:first-child {
+    margin-right: 30px;
+  }
+
+  &:last-child {
+    margin-left: auto;
+  }
+`;
+
+export const CountLike = styled.span`
+  margin-left: 5px;
+  font-size: 19px;
+  font-weight: bold;
+  text-shadow: 0px 0px 7px #000;
+  color: aqua;
+  letter-spacing: 2px;
+`;
+
+export const CommentCount = styled.span`
+  margin-left: 5px;
+  font-size: 19px;
+  font-weight: bold;
+  text-shadow: 0px 0px 7px #000;
+  color: aqua;
+  letter-spacing: 2px;
+`;
+
+export const StyleFaRegComment = styled(FaComment)`
+  cursor: pointer;
+`;
+
+export const StyleSlLike = styled(AiFillLike)`
+  cursor: pointer;
+`;
+
+export const StyleCiLocationOn = styled(CiLocationOn)`
+  cursor: pointer;
 `;

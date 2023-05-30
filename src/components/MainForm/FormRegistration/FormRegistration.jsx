@@ -35,14 +35,12 @@ const initialValues = {
   login: '',
   email: '',
   password: '',
-  userAvatar: null,
 };
 
 const schema = yup.object().shape({
   login: yup.string().min(4).max(20).required(),
   email: yup.string().required(),
   password: yup.string().min(10).max(20).required(),
-  userAvatar: yup.mixed().optional(),
 });
 
 const FormRegistration = () => {
@@ -117,7 +115,11 @@ const FormRegistration = () => {
       // Добавляем URL аватара в данные пользователя и отправляем на сервер
       const userDataWithAvatar = downloadURL
         ? { ...userData, userAvatar: downloadURL }
-        : userData;
+        : {
+            ...userData,
+            userAvatar:
+              'https://media.istockphoto.com/id/1214428300/vector/default-profile-picture-avatar-photo-placeholder-vector-illustration.jpg?s=612x612&w=0&k=20&c=vftMdLhldDx9houN4V-g3C9k0xl6YeBcoB_Rk6Trce0=',
+          };
       formikRef.current.setFieldValue('userAvatar', downloadURL); // Обновляем значение userAvatar в форме
       await dispatch(authSignUpUser(userDataWithAvatar));
       navigate('/Home');

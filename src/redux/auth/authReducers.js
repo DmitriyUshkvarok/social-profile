@@ -43,9 +43,5 @@ export const authSlice = createSlice({
         userAvatar: payload,
       };
     },
-    updateCommentCount(state, action) {
-      const { id, count } = action.payload;
-      state.commentCounts[id] = count;
-    },
   },
 });
